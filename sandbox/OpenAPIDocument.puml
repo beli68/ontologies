@@ -1,0 +1,180 @@
+@startuml OpenAPI Document Ontologies
+
+' OpenAPI Documentを書く上でのオントロジーを考る
+
+class OpenAPI_Document{}
+class Scheme{}
+
+' Schemeのオブジェクト
+class OpenAPI_Object{}
+class Info_Object{}
+class Contact_Object{}
+class License_Object{}
+class Server_Object{}
+class Server_Variable_Object{}
+class Components_Object{}
+class Paths_Object{}
+class Path_Item_Object{}
+class Operation_Object{}
+class External_Documentation_Object{}
+class Parameter_Object{}
+class Request_Body_Object{}
+class Media_Type_Object{}
+class Encoding_Object{}
+class Responses_Object{}
+class Response_Object{}
+class Callback_Object{}
+class Example_Object{}
+class Link_Object{}
+class Header_Object{}
+class Tag_Object{}
+class Reference_Object{}
+class Schema_Object{
+    title
+    multipleOf
+    maximum
+    exclusiveMaximum
+    minimum
+    exclusiveMinimum
+    maxLength
+    minLength
+    maxItems
+    minItems
+    uniqueItems
+    maxProperties
+    minProperties
+    required
+    enum
+    type
+    allOf
+    oneOf
+    anyOf
+    not
+    items
+    properties
+    additionalProperties
+    description
+    format
+    default
+}
+class Discriminator_Object{}
+class XML_Object{}
+class Security_Scheme_Object{}
+class OAuth_Flows_Object{}
+class OAuth_Flow_Object{}
+class Security_Requirement_Object{}
+
+' 取りあえずSchema_Object以外のObject消す
+remove OpenAPI_Object
+remove Info_Object
+remove Contact_Object
+remove License_Object
+remove Server_Object
+remove Server_Variable_Object
+remove Components_Object
+remove Paths_Object
+remove Path_Item_Object
+remove Operation_Object
+remove External_Documentation_Object
+remove Parameter_Object
+remove Request_Body_Object
+remove Media_Type_Object
+remove Encoding_Object
+remove Responses_Object
+remove Response_Object
+remove Callback_Object
+remove Example_Object
+remove Link_Object
+remove Header_Object
+remove Tag_Object
+remove Reference_Object
+remove Discriminator_Object
+remove XML_Object
+remove Security_Scheme_Object
+remove OAuth_Flows_Object
+remove OAuth_Flow_Object
+remove Security_Requirement_Object
+
+
+
+OpenAPI_Document<|--Scheme
+Scheme <|-- OpenAPI_Object
+Scheme <|-- Info_Object
+Scheme <|-- Contact_Object
+Scheme <|-- License_Object
+Scheme <|-- Server_Object
+Scheme <|-- Server_Variable_Object
+Scheme <|-- Components_Object
+Scheme <|-- Paths_Object
+Scheme <|-- Path_Item_Object
+Scheme <|-- Operation_Object
+Scheme <|-- External_Documentation_Object
+Scheme <|-- Parameter_Object
+Scheme <|-- Request_Body_Object
+Scheme <|-- Media_Type_Object
+Scheme <|-- Encoding_Object
+Scheme <|-- Responses_Object
+Scheme <|-- Response_Object
+Scheme <|-- Callback_Object
+Scheme <|-- Example_Object
+Scheme <|-- Link_Object
+Scheme <|-- Header_Object
+Scheme <|-- Tag_Object
+Scheme <|-- Reference_Object
+Scheme <|-- Schema_Object
+Scheme <|-- Discriminator_Object
+Scheme <|-- XML_Object
+Scheme <|-- Security_Scheme_Object
+Scheme <|-- OAuth_Flows_Object
+Scheme <|-- OAuth_Flow_Object
+Scheme <|-- Security_Requirement_Object
+
+
+' Schemaの種類？
+' todo: OpenAPI Documentを見ながら分類を作って行く
+' todo: プロパティの表現方法考える
+
+class StringSchema{
+    type: string
+    format
+    maxLength
+    minLength
+    pattern
+    required
+}
+
+Schema_Object <|-- StringSchema
+
+class MailStringSchema{
+    type: string
+    format: email
+
+}
+
+StringSchema <|-- MailStringSchema
+
+class IntegerSchema{
+    type: integer
+    required
+}
+
+Schema_Object <|-- IntegerSchema
+
+class Integer32Schema{
+    type: integer
+    format: int32
+    required
+}
+
+IntegerSchema <|-- Integer32Schema
+
+class IdInteger32Schema{
+    type: integer
+    format: int32
+    maximum: 2147483647
+}
+
+Integer32Schema <|-- IdInteger32Schema
+
+
+@enduml
