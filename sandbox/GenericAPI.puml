@@ -1,0 +1,7 @@
+@startuml APPLICATION
+
+class ID{}
+
+Class Name{}
+
+@enduml

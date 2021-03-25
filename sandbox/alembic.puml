@@ -1,0 +1,17 @@
+@startuml Alambic
+
+' 複数のオントロジーを統合する
+
+package "OpenAPI Document Ontologies" {
+    !include OpenAPIDocument.puml
+}
+
+
+package "Generic API Ontologies" {
+    !include GenericAPI.puml
+}
+
+Integer32Schema <|-- ID
+
+
+@enduml
