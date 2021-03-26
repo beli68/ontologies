@@ -4,4 +4,32 @@ class ID{}
 
 Class Name{}
 
+Class Mode{}
+
+note right of Mode
+    modeは大体enum？
+end note
+
+
+Class Permission{}
+
+Class 文字列{}
+Class 数値{}
+Class read{}
+Class write{}
+
+Permission --> read
+read -- 数値 : 表現
+read -- 文字列 : 表現
+Permission --> write
+write -- 数値 : 表現
+write -- 文字列 : 表現
+
+Class User{}
+User --> ID
+User --> Permission
+User --> Name
+
+
+
 @enduml
