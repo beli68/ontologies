@@ -30,6 +30,38 @@ User --> ID
 User --> Permission
 User --> Name
 
+Class Authentication{}
 
+Class KnowledgeBasedAuthentication{}
+Authentication <|-- KnowledgeBasedAuthentication
+
+Class PossessionBasedAuthentication{}
+Authentication <|-- PossessionBasedAuthentication
+
+Class TOTP{}
+
+PossessionBasedAuthentication <|.. TOTP
+
+Class InherentBasedAuthentication{}
+
+Authentication <|-- InherentBasedAuthentication
+
+Class Authorization{}
+
+Class OAuth{}
+
+Authorization <|-- OAuth
+
+Class AccessToken
+
+OAuth-->AccessToken
+
+note as n1
+Webシステムに認証/認可は付きもの
+
+パスワードによる認証や
+TOTPと組み合わせた多要素認証
+OAuthによる認可
+end note
 
 @enduml
