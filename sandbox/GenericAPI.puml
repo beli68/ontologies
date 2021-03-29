@@ -25,6 +25,14 @@ Permission --> write
 write -- 数値 : 表現
 write -- 文字列 : 表現
 
+Class Visibility{}
+
+Permission -- Visibility
+
+Class Scope{}
+
+Permission -- Scope
+
 Class User{}
 User --> ID
 User --> Permission
@@ -36,6 +44,17 @@ IDに少なくとも2種類考えられる．
 DB上で連番振るようなID
 ログインに使用する様なID
 
+end note
+
+Class Owner{}
+User -- Owner
+
+Class Member
+User -- Member
+
+note as user_note
+ユーザと言う概念は色々な名前で出てくる
+OwnerやMember等
 end note
 
 Class Authentication{}
@@ -63,6 +82,15 @@ Authorization <|-- OAuth
 Class AccessToken
 
 OAuth-->AccessToken
+
+Class JWT{}
+
+AccessToken <|-- JWT
+
+
+Class 公開鍵認証{}
+
+PossessionBasedAuthentication <.. 公開鍵認証
 
 note as n1
 Webシステムに認証/認可は付きもの
