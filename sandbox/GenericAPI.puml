@@ -2,7 +2,7 @@
 
 class ID{}
 
-Class Name{}
+Class 名前{}
 
 Class Mode{}
 
@@ -33,10 +33,13 @@ Class Scope{}
 
 Permission -- Scope
 
-Class User{}
-User --> ID
+Class User{
+    id: ID
+    name: 名前
+}
+User::id "0..1" o-- "1" ID
 User --> Permission
-User --> Name
+User::name "0..1" -->"1" 名前
 
 note as id_note
 
