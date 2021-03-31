@@ -16,22 +16,27 @@ Class Permission{}
 Class 文字列{}
 Class 数値{}
 Class read{}
-Class write{}
+Class create{}
+Class update{}
+Class read{}
+Class delete{}
 
 Permission --> read
 read -- 数値 : 表現
 read -- 文字列 : 表現
-Permission --> write
-write -- 数値 : 表現
-write -- 文字列 : 表現
+Permission --> create
+create -- 数値 : 表現
+create -- 文字列 : 表現
+Permission --> update
+Permission --> delete
 
 Class Visibility{}
 
-Permission -- Visibility
+Permission <|-- Visibility
 
 Class Scope{}
 
-Permission -- Scope
+Permission <|-- Scope
 
 Class User{
     id: ID
