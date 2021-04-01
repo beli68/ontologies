@@ -1,5 +1,27 @@
 @startuml APPLICATION
 
+package "example" {
+    note as example
+        凡例風に各ラインのルールを決めて書いていく
+        ここの細かい考えた事は別途各図に情報を追加する
+        まずはUML本来の表現？
+    end note
+    Class C1
+    Class C2
+
+    C1 <|-- C2 : "C2はC1のサブクラス（もしくは特殊化），C2を一般化するとC1"
+
+    Class 全体
+    Class 部分
+
+    全体 o-- 部分 : "集約{aggregation)関係，全体が部分を持っている．部分は他の全体にあたるものと共有される"
+
+    Class 全体1
+    Class 部分1
+    全体1 *-- 部分1 : "コンポジション(composition)関係，全体が部分を持っているが，部分が無いとなりたたない．もしくは全体が無くなると"
+}
+
+
 class ID{}
 
 Class 名前{}
