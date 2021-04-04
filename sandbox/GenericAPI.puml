@@ -64,11 +64,11 @@ Class User{
     id: ID
     name: 名前
 }
-User::id "0..1" o-- "1" ID
+User::id "0..*" o-- "1" ID: "IDを0個以上持つ"
 User --> Permission
-User::name "0..1" -->"1" 名前
+User::name "0..1" o-->"1" 名前: "名前を0個以上1個以下持つ"
 
-note as id_note
+note bottom of ID
 
 IDに少なくとも2種類考えられる．
 DB上で連番振るようなID
@@ -77,23 +77,33 @@ DB上で連番振るようなID
 end note
 
 Class Owner{}
-User -- Owner
+User <|-- Owner: "ユーザのロールとしてオーナーがある"
 
-Class Member
-User -- Member
+Class Member{}
+User <|-- Member: "ユーザのロールとしてメンバーがある"
 
-note as user_note
-ユーザと言う概念は色々な名前で出てくる
-OwnerやMember等
+note top of User
+ユーザと言う概念は最終的には人，
+その時々でOwnerやMemberの様なロールで呼ばれる．
 end note
 
 Class Authentication{}
 
 Class KnowledgeBasedAuthentication{}
-Authentication <|-- KnowledgeBasedAuthentication
+Authentication <|-- KnowledgeBasedAuthentication: "認証の特殊化"
+
+note bottom of KnowledgeBasedAuthentication
+知っていことで認証する．
+パスワードなど
+end note
 
 Class PossessionBasedAuthentication{}
-Authentication <|-- PossessionBasedAuthentication
+Authentication <|-- PossessionBasedAuthentication: "認証の特殊化"
+
+note bottom of PossessionBasedAuthentication
+持っているものによって認証する．
+TOTPなど
+end note
 
 Class TOTP{}
 
@@ -101,7 +111,15 @@ PossessionBasedAuthentication <|.. TOTP
 
 Class InherentBasedAuthentication{}
 
-Authentication <|-- InherentBasedAuthentication
+Authentication <|-- InherentBasedAuthentication: "認証の特殊化"
+
+note bottom of InherentBasedAuthentication
+備えているものによって認証する．
+指紋など
+end note
+
+Class BiometricAuthentication{}
+InherentBasedAuthentication <|-- BiometricAuthentication: "生体認証は備えているものによる認証の特殊化"
 
 Class Authorization{}
 
