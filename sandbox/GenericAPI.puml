@@ -11,6 +11,7 @@ package "example" {
 
     C1 <|-- C2 : "C2はC1のサブクラス（もしくは特殊化），C2を一般化するとC1"
 
+    C1 --> C2: "C1がC2を所有している"
     Class 全体
     Class 部分
 
@@ -18,7 +19,7 @@ package "example" {
 
     Class 全体1
     Class 部分1
-    全体1 *-- 部分1 : "コンポジション(composition)関係，全体が部分を持っているが，部分が無いとなりたたない．もしくは全体が無くなると"
+    全体1 *-- 部分1 : "コンポジション(composition)関係，全体が部分を持っているが，部分が無いとなりたたない"
 }
 
 
@@ -43,6 +44,11 @@ Class update{}
 Class read{}
 Class delete{}
 
+note right of read
+PermissionとReadの関係って
+Permissionの特殊化であって
+Readを所有していたり，一部だったりしないのでは？
+end note
 Permission --> read
 read -- 数値 : 表現
 read -- 文字列 : 表現
@@ -58,15 +64,13 @@ Permission <|-- Visibility
 
 Class Scope{}
 
-Permission <|-- Scope
+Permission --> Scope: "PermissionはScopeを持つ"
+Visibility --> Scope
 
-Class User{
-    id: ID
-    name: 名前
-}
-User::id "0..*" o-- "1" ID: "IDを0個以上持つ"
-User --> Permission
-User::name "0..1" o-->"1" 名前: "名前を0個以上1個以下持つ"
+Class User{}
+User --> ID: "IDを持つ"
+User --> Permission: "ユーザは権限を持つ"
+User --> 名前: "名前を0持つ"
 
 note bottom of ID
 
@@ -81,6 +85,8 @@ User <|-- Owner: "ユーザのロールとしてオーナーがある"
 
 Class Member{}
 User <|-- Member: "ユーザのロールとしてメンバーがある"
+
+(Owner,Member) --> Permission: "OwnerとMemberはPermissionに違いがある"
 
 note top of User
 ユーザと言う概念は最終的には人，
