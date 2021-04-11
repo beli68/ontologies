@@ -22,76 +22,29 @@ package "example" {
     全体1 *-- 部分1 : "コンポジション(composition)関係，全体が部分を持っているが，部分が無いとなりたたない"
 }
 
+Class ユーザアカウント{}
+Class リポジトリ{}
+Class 権限{}
+Class ユーザ権限{}
+class リポジトリ権限{}
 
-class ID{}
-
-Class 名前{}
-
-Class Mode{}
-
-note right of Mode
-    modeは大体enum？
+ユーザアカウント -- リポジトリ: 所有 >
+ユーザアカウント -- ユーザ権限: 所有 >
+note on link
+ユーザアカウントはユーザ権限を持っている？．
+ユーザアカウントは必ずユーザ権限を持っているならそれは集約？
 end note
 
+リポジトリ -- リポジトリ権限: リポジトリ権限を持っている >
 
-Class Permission{}
-
-Class 文字列{}
-Class 数値{}
-Class read{}
-Class create{}
-Class update{}
-Class read{}
-Class delete{}
-
-note right of read
-PermissionとReadの関係って
-Permissionの特殊化であって
-Readを所有していたり，一部だったりしないのでは？
+リポジトリ権限 -- オーナ権限
+リポジトリ権限 -- メンバ権限
+note as note権限名
+リポジトリ権限の値セットに名前が付いている
 end note
-Permission --> read
-read -- 数値 : 表現
-read -- 文字列 : 表現
-Permission --> create
-create -- 数値 : 表現
-create -- 文字列 : 表現
-Permission --> update
-Permission --> delete
+オーナ権限 -- note権限名
+メンバ権限 -- note権限名
 
-Class Visibility{}
-
-Permission <|-- Visibility
-
-Class Scope{}
-
-Permission --> Scope: "PermissionはScopeを持つ"
-Visibility --> Scope
-
-Class User{}
-User --> ID: "IDを持つ"
-User --> Permission: "ユーザは権限を持つ"
-User --> 名前: "名前を0持つ"
-
-note bottom of ID
-
-IDに少なくとも2種類考えられる．
-DB上で連番振るようなID
-ログインに使用する様なID
-
-end note
-
-Class Owner{}
-User <|-- Owner: "ユーザのロールとしてオーナーがある"
-
-Class Member{}
-User <|-- Member: "ユーザのロールとしてメンバーがある"
-
-(Owner,Member) --> Permission: "OwnerとMemberはPermissionに違いがある"
-
-note top of User
-ユーザと言う概念は最終的には人，
-その時々でOwnerやMemberの様なロールで呼ばれる．
-end note
 
 Class Authentication{}
 
