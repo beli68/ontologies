@@ -26,25 +26,32 @@ Class ユーザアカウント{}
 Class リポジトリ{}
 Class 権限{}
 Class ユーザ権限{}
-class リポジトリ権限{}
+Class リポジトリ権限{}
+Class リポジトリ所有者
+Class リポジトリメンバー
 
-ユーザアカウント -- リポジトリ: 所有 >
 ユーザアカウント -- ユーザ権限: 所有 >
 note on link
 ユーザアカウントはユーザ権限を持っている？．
 ユーザアカウントは必ずユーザ権限を持っているならそれは集約？
 end note
 
-リポジトリ -- リポジトリ権限: リポジトリ権限を持っている >
+リポジトリ *-- リポジトリ権限: リポジトリ権限が含まれる
 
-リポジトリ権限 -- オーナ権限
-リポジトリ権限 -- メンバ権限
+リポジトリ権限 -- オーナー権限
+リポジトリ権限 -- メンバー権限
 note as note権限名
 リポジトリ権限の値セットに名前が付いている
 end note
-オーナ権限 -- note権限名
-メンバ権限 -- note権限名
+オーナー権限 -- note権限名
+メンバー権限 -- note権限名
 
+リポジトリ -- リポジトリ所有者: < 所有 所有者無しでリポジトリは存在しない
+リポジトリ "0..*"--"0..*" リポジトリメンバー: リポジトリには所有者ではないがアクセスできるアカウントが存在する
+
+リポジトリ所有者 -- オーナー権限: リポジトリの所有者はオーナー権限と呼ばれる権限セットを所有する
+リポジトリメンバー -- オーナー権限: メンバーもオーナー権限がある場合がある
+リポジトリメンバー -- メンバー権限
 
 Class Authentication{}
 
@@ -66,7 +73,7 @@ end note
 
 Class TOTP{}
 
-PossessionBasedAuthentication <|.. TOTP
+PossessionBasedAuthentication <|-- TOTP
 
 Class InherentBasedAuthentication{}
 
@@ -92,12 +99,12 @@ OAuth-->AccessToken
 
 Class JWT{}
 
-AccessToken <|-- JWT
+AccessToken -- JWT
 
 
 Class 公開鍵認証{}
 
-PossessionBasedAuthentication <.. 公開鍵認証
+PossessionBasedAuthentication <|-- 公開鍵認証
 
 note as n1
 Webシステムに認証/認可は付きもの
