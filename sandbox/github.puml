@@ -1,159 +1,44 @@
 @startuml GitHub API
 
-package "example" {
-    note as example
-        凡例風に各ラインのルールを決めて書いていく
-        ここの細かい考えた事は別途各図に情報を追加する
-        まずはUML本来の表現？
-    end note
-    Class C1
-    Class C2
-
-    C1 <|-- C2 : "C2はC1のサブクラス（もしくは特殊化），C2を一般化するとC1"
-
-    C1 --> C2: "C1がC2を所有している"
-    Class 全体
-    Class 部分
-
-    全体 o-- 部分 : "集約{aggregation)関係，全体が部分を持っている．部分は他の全体にあたるものと共有される"
-
-    Class 全体1
-    Class 部分1
-    全体1 *-- 部分1 : "コンポジション(composition)関係，全体が部分を持っているが，部分が無いとなりたたない"
+Class ユーザアカウント{
+    login
+    name
+    id
+    email
 }
 
-Class ユーザアカウント{}
-Class リポジトリ{}
-Class 権限{}
-Class ユーザ権限{}
-Class リポジトリ権限{}
-Class リポジトリ所有者
-Class リポジトリメンバー
-
-ユーザアカウント -- ユーザ権限: 所有 >
-note on link
-ユーザアカウントはユーザ権限を持っている？．
-ユーザアカウントは必ずユーザ権限を持っているならそれは集約？
+note as todo
+GitHubのユーザは色々なURLを持っているからそれ全部列挙していく？
 end note
 
+Class ユーザ名
 
-ユーザアカウント -- リポジトリ: 所有 >
-note on link
-ユーザアカウントはリポジトリを持っている
-end note
-リポジトリ *-- リポジトリ権限: リポジトリ権限が含まれる
-
-リポジトリ権限 -- オーナー権限
-リポジトリ権限 -- メンバー権限
-note as note権限名
-リポジトリ権限の値セットに名前が付いている
-end note
-オーナー権限 -- note権限名
-メンバー権限 -- note権限名
-
-リポジトリ -- リポジトリ所有者: < 所有 所有者無しでリポジトリは存在しない
-リポジトリ "0..*"--"0..*" リポジトリメンバー: リポジトリには所有者ではないがアクセスできるアカウントが存在する
-
-リポジトリ所有者 -- オーナー権限: リポジトリの所有者はオーナー権限と呼ばれる権限セットを所有する
-リポジトリメンバー -- オーナー権限: メンバーもオーナー権限がある場合がある
-リポジトリメンバー -- メンバー権限
-
-
-ユーザアカウント -- 認証情報: 所有 ＞
-note on link
-ユーザアカウントは認証情報を持っている．
-APIの文脈では分けられないものだろうか？
+note right of ユーザ名
+ユーザ名はログインやアカウント名
 end note
 
-Class Authentication{}
-
-Class KnowledgeBasedAuthentication{}
-Authentication <|-- KnowledgeBasedAuthentication: "認証の特殊化"
-
-note bottom of KnowledgeBasedAuthentication
-知っていことで認証する．
-パスワードなど
+Class 表示名
+Class ID
+Class メールアドレス
+Class 名前
+note right of 名前
+名前も識別子か……
 end note
 
-Class PossessionBasedAuthentication{}
-Authentication <|-- PossessionBasedAuthentication: "認証の特殊化"
-
-note bottom of PossessionBasedAuthentication
-持っているものによって認証する．
-TOTPなど
+Class general_ID
+note right of general_ID
+一般的な意味でのID
+何かを識別してる
 end note
 
-Class TOTP{}
+ユーザアカウント -- ユーザ名: ユーザアカウントはユーザ名を持っている
+ユーザアカウント -- ID: ユーザアカウントはIDをもっている
+ユーザアカウント -- メールアドレス: ユーザアカウントはメールアドレスを持っている
 
-PossessionBasedAuthentication <|-- TOTP
+general_ID <|-- ユーザ名:ユーザ名はIDの別形態
+名前 <|-- 表示名
+general_ID <|-- ID:IDはIDそのものを数字で表す
+名前 -- ユーザ名: ユーザ名も広い意味では名前として扱われる
 
-Class InherentBasedAuthentication{}
-
-Authentication <|-- InherentBasedAuthentication: "認証の特殊化"
-
-note bottom of InherentBasedAuthentication
-備えているものによって認証する．
-指紋など
-end note
-
-Class BiometricAuthentication{}
-InherentBasedAuthentication <|-- BiometricAuthentication: "生体認証は備えているものによる認証の特殊化"
-
-Class Authorization{}
-
-Class OAuth{}
-
-Authorization <|-- OAuth
-
-Class AccessToken
-
-OAuth-->AccessToken
-
-Class JWT{}
-
-AccessToken -- JWT
-
-
-Class 公開鍵認証{}
-
-PossessionBasedAuthentication <|-- 公開鍵認証
-
-note as n1
-Webシステムに認証/認可は付きもの
-
-パスワードによる認証や
-TOTPと組み合わせた多要素認証
-OAuthによる認可
-end note
-
-
-Class Billing{}
-
-Class Creditcard{}
-
-Class 現金{}
-
-Class 口座振替{}
-Class 銀行振込{}
-Class 請求書{}
-Class 領収書{}
-Class 支払方法{}
-
-Billing -- 支払方法
-支払方法 -- Creditcard
-支払方法 -- 現金
-支払方法 -- 口座振替
-支払方法 -- 銀行振込
-Billing -- 請求書
-Billing -- 領収証
-
-Class Price{}
-
-Price -- Billing
-note as billing_note
-多くのサービスには何らかの形で支払が発生する，
-それはサービスの利用料金にしはらいだったり，ECの注文だったり
-支払方法
-end note
 
 @enduml
