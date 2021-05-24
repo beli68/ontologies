@@ -1,0 +1,162 @@
+@startuml Petstore API
+
+note as N1
+M_の接頭辞がYAMLにあるモデル
+オントロジーのクラスに接頭辞付けた方が良いかも……
+end note
+namespace Petstore {
+
+    class ID{}
+    class Name{}
+    class Category{}
+    class URL{}
+    class Tag{}
+    class Status{}
+    class StatusName{}
+
+    Status <|-- StatusName
+    note right on link
+    ステータスを文字列で表現する場合（
+    あとで制約として文字列を紐付け
+    end note
+
+    Class StatusNumber{}
+
+    Status <|-- StatusNumber
+    note right on link
+    ステータスを数字で表現する場合（
+    あとで制約として数字を紐付ける）
+    end note
+
+    class EmailAddress{}
+    class Password{}
+    class PhoneNumber{}
+    class StateNumber{}
+    class Quantity{}
+    class Choices{}
+    class DateTime{}
+    class Street{}
+    class City{}
+    class State{}
+    class ZipCode{}
+    class HttpStatusCode{}
+    note right of HttpStatusCode
+    200とか404とか
+    end note
+    class responseType{}
+    class Message{}
+
+
+    class M_Pet{
+        id: integer
+        name: string
+        category: category
+        photourls: array[string]
+        tags: array[Tag]
+        status: enum[string]
+    }
+
+    M_Pet::id -- ID
+    M_Pet::name -- Name
+    M_Pet::category -- M_Category
+    M_Pet::photourls -- URL: "URLの配列なので実質URL"
+    M_Pet::tags -- M_Tag
+    M_Pet::Status -- Choices
+    note right on link
+    StatusはEnumでStatusを文字列で表現
+    StatusNameに紐付けるべきか？
+    end note
+
+    class M_Category{
+        id: integer
+        name: string
+    }
+
+    M_Category::id -- ID
+    M_Category::name -- Name
+
+    class M_Tag{
+        id: integer
+        name: string
+    }
+
+    M_Tag::id -- ID
+    M_Tag::name -- Name
+
+    class M_User{
+        id: integer
+        username: string
+        firstName: string
+        lastName: string
+        email: string
+        password: string
+        phone: string
+        userStatus: integer
+    }
+
+    M_User::id -- ID
+    M_User::username -- Name
+    M_User::firstName -- Name
+    M_User::lastName --Name
+    M_User::email -- EmailAddress
+    M_User::password -- Password : フォーマットをサジェストする？
+    M_User::phone -- PhoneNumber : フォーマットが複数あるのでクラス分かれると思う
+    M_User::userStatus -- StatusNumber
+
+    class M_Order{
+        id: integer
+        petId: integer
+        quantity: integer
+        shipDate: string
+        status: enmu[string]
+        complete: boolean
+    }
+    note right of M_Order::complate
+    booleanはbooleanな気がする
+    注文が完了したかだろうけど……
+    end note
+
+    M_Order::id -- ID
+    M_Order::petId -- ID
+    M_Order::quantity -- Quantity
+    M_Order::shipDate -- DateTime
+    M_Order::status -- Choices
+    note right on link
+    StatusはEnumでStatusを文字列で表現
+    StatusNameに紐付けるべきか？
+    end note
+
+    class M_Customer{
+        id: integer
+        username: string
+        address: array[M_Address]
+    }
+
+    M_Customer::id -- ID
+    M_Customer::username -- Name
+    M_Customer::address -- M_Address
+
+    class M_Address{
+        street: string
+        city: string
+        state: string
+        zip: string
+    }
+
+    M_Address::street -- Street
+    M_Address::city -- City
+    M_Address::state -- State
+    M_Address::zip -- ZipCode
+
+    class M_ApiResponse{
+        code: integer
+        type: string
+        message: string
+    }
+
+    M_ApiResponse::code -- HttpStatusCode
+    M_ApiResponse::type -- responseType
+    M_ApiResponse::message -- Message
+
+}
+@enduml
