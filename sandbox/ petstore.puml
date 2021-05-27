@@ -46,6 +46,16 @@ namespace Petstore {
     class responseType{}
     class Message{}
 
+    class Type{}
+    class TypeString{}
+    class TypeInteger{}
+    Type <|-- TypeString
+    Type <|-- TypeInteger
+
+    class hasType{}
+
+    ID "*.." -- "1" hasType : IDは1つTypeを持つ
+    hasType -- Type : Type を持つ >
 
     class M_Pet{
         id: integer
@@ -158,5 +168,25 @@ namespace Petstore {
     M_ApiResponse::type -- responseType
     M_ApiResponse::message -- Message
 
+
+}
+
+namespace Idea{
+    note as idea_n1
+        アイデアメモ
+        大本のクラスで制約のルールなどをつくり，
+        それを満たした別クラスで具体的な制約や値を持ったせる
+        そうするとどのような値を持つべきか分かる
+    end note
+    class OO_ID{}
+    class PO_ID{}
+    class 制約{}
+    class 具体的な制約{}
+    class 具体的な値{}
+    OO_ID -- PO_ID
+
+    OO_ID -- 制約
+    PO_ID -- 具体的な制約
+    PO_ID -- 具体的な値
 }
 @enduml
