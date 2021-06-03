@@ -1,192 +1,103 @@
 @startuml Petstore API
+(AO_APIProperty) as AO_APIProperty
 
-note as N1
-M_の接頭辞がYAMLにあるモデル
-オントロジーのクラスに接頭辞付けた方が良いかも……
-end note
-namespace Petstore {
+AO_APIProperty -- "1..1" (Type) : hasType
+(Type) <-- (TypeOfInt)
+(TypeOfInt) -- (xs:Integer): 数値を持つ
+(Type) <-- (TypeOfStr)
+(TypeOfStr) -- (xs:String) : 文字列を持つ
 
-    class ID{}
-    class Name{}
-    class Category{}
-    class URL{}
-    class Tag{}
-    class Status{}
-    class StatusName{}
+(AO_ID) as AO_ID
 
-    Status <|-- StatusName
-    note right on link
-    ステータスを文字列で表現する場合（
-    あとで制約として文字列を紐付け
-    end note
+AO_APIProperty <-- AO_ID : SubClassOf
 
-    Class StatusNumber{}
+(AO_DB_ID) --> AO_ID :SubClassOf
 
-    Status <|-- StatusNumber
-    note right on link
-    ステータスを数字で表現する場合（
-    あとで制約として数字を紐付ける）
-    end note
+(AO_DB_ID) -- (xs:long)
 
-    class EmailAddress{}
-    class Password{}
-    class PhoneNumber{}
-    class StateNumber{}
-    class Quantity{}
-    class Choices{}
-    class DateTime{}
-    class Street{}
-    class City{}
-    class State{}
-    class ZipCode{}
-    class HttpStatusCode{}
-    note right of HttpStatusCode
-    200とか404とか
-    end note
-    class responseType{}
-    class Message{}
+(AO_Name) as AO_Name
 
-    class Type{}
-    class TypeString{}
-    class TypeInteger{}
-    Type <|-- TypeString
-    Type <|-- TypeInteger
+AO_APIProperty <-- AO_Name : SubClassOf
 
-    class hasType{}
+(AO_Category) as AO_Category
+AO_APIProperty <-- AO_Category : SubClassOf
 
-    ID "*.." -- "1" hasType : IDは1つTypeを持つ
-    hasType -- Type : Type を持つ >
+(AO_URL) as AO_URL
+AO_APIProperty <-- AO_URL : SubClassOf
 
-    class M_Pet{
-        id: integer
-        name: string
-        category: category
-        photourls: array[string]
-        tags: array[Tag]
-        status: enum[string]
-    }
+(AO_Tag) as AO_Tag
+AO_APIProperty <-- AO_Tag : SubClassOf
 
-    M_Pet::id -- ID
-    M_Pet::name -- Name
-    M_Pet::category -- M_Category
-    M_Pet::photourls -- URL: "URLの配列なので実質URL"
-    M_Pet::tags -- M_Tag
-    M_Pet::Status -- Choices
-    note right on link
-    StatusはEnumでStatusを文字列で表現
-    StatusNameに紐付けるべきか？
-    end note
+(AO_Status) as AO_Status
+AO_APIProperty <-- AO_Status : SubClassOf
 
-    class M_Category{
-        id: integer
-        name: string
-    }
+(AO_StatusName) as AO_StatusName
+AO_APIProperty <-- AO_StatusName : SubClassOf
 
-    M_Category::id -- ID
-    M_Category::name -- Name
+(AO_StatusNumber) as AO_StatusNumber
+AO_APIProperty <-- AO_StatusNumber : SubClassOf
 
-    class M_Tag{
-        id: integer
-        name: string
-    }
+(AO_EmailAddress) as AO_EmailAddress
+AO_APIProperty <-- AO_EmailAddress : SubClassOf
 
-    M_Tag::id -- ID
-    M_Tag::name -- Name
+(AO_Password) as AO_Password
+AO_APIProperty <-- AO_Password : SubClassOf
 
-    class M_User{
-        id: integer
-        username: string
-        firstName: string
-        lastName: string
-        email: string
-        password: string
-        phone: string
-        userStatus: integer
-    }
+(AO_PhoneNumber) as AO_PhoneNumber
+AO_APIProperty <-- AO_PhoneNumber : SubClassOf
 
-    M_User::id -- ID
-    M_User::username -- Name
-    M_User::firstName -- Name
-    M_User::lastName --Name
-    M_User::email -- EmailAddress
-    M_User::password -- Password : フォーマットをサジェストする？
-    M_User::phone -- PhoneNumber : フォーマットが複数あるのでクラス分かれると思う
-    M_User::userStatus -- StatusNumber
+(AO_StateNumber) as AO_StateNumber
+AO_APIProperty <-- AO_StateNumber : SubClassOf
 
-    class M_Order{
-        id: integer
-        petId: integer
-        quantity: integer
-        shipDate: string
-        status: enmu[string]
-        complete: boolean
-    }
-    note right of M_Order::complate
-    booleanはbooleanな気がする
-    注文が完了したかだろうけど……
-    end note
+(AO_Quantity) as AO_Quantity
+AO_APIProperty <-- AO_Quantity : SubClassOf
 
-    M_Order::id -- ID
-    M_Order::petId -- ID
-    M_Order::quantity -- Quantity
-    M_Order::shipDate -- DateTime
-    M_Order::status -- Choices
-    note right on link
-    StatusはEnumでStatusを文字列で表現
-    StatusNameに紐付けるべきか？
-    end note
+(AO_Choices) as AO_Choices
+AO_APIProperty <-- AO_Choices : SubClassOf
 
-    class M_Customer{
-        id: integer
-        username: string
-        address: array[M_Address]
-    }
+(AO_DateTime) as AO_DateTime
+AO_APIProperty <-- AO_DateTime : SubClassOf
 
-    M_Customer::id -- ID
-    M_Customer::username -- Name
-    M_Customer::address -- M_Address
+(AO_Street) as AO_Street
+AO_APIProperty <-- AO_Street : SubClassOf
 
-    class M_Address{
-        street: string
-        city: string
-        state: string
-        zip: string
-    }
+(AO_City) as AO_City
+AO_APIProperty <-- AO_City : SubClassOf
 
-    M_Address::street -- Street
-    M_Address::city -- City
-    M_Address::state -- State
-    M_Address::zip -- ZipCode
+(AO_State) as AO_State
+AO_APIProperty <-- AO_State : SubClassOf
 
-    class M_ApiResponse{
-        code: integer
-        type: string
-        message: string
-    }
+(AO_ZipCode) as AO_ZipCode
+AO_APIProperty <-- AO_ZipCode : SubClassOf
 
-    M_ApiResponse::code -- HttpStatusCode
-    M_ApiResponse::type -- responseType
-    M_ApiResponse::message -- Message
+(AO_HttpStatusCode) as AO_HttpStatusCode
+AO_APIProperty <-- AO_HttpStatusCode : SubClassOf
+
+(AO_responseType) as AO_responseType
+AO_APIProperty <-- AO_responseType : SubClassOf
+
+(AO_Message) as AO_Message
+AO_APIProperty <-- AO_Message : SubClassOf
+
+(AO_Type) as AO_Type
+AO_APIProperty <-- AO_Type : SubClassOf
+
+(AO_TypeString) as AO_TypeString
+AO_Type <-- AO_TypeString : SubClassOf
+
+(AO_TypeInteger) as AO_TypeInteger
+AO_Type <-- AO_TypeInteger : SubClassOf
+
+(AO_hasType) as AO_hasType
+AO_APIProperty <-- AO_hasType : SubClassOf
 
 
+rectangle petstore{
+    (id) as PetId
+    (Pet) -- PetId
+    AO_DB_ID -- PetId
+    PetId -- TypeOfInt
+    PetId -- (1以上) : minimum
 }
 
-namespace Idea{
-    note as idea_n1
-        アイデアメモ
-        大本のクラスで制約のルールなどをつくり，
-        それを満たした別クラスで具体的な制約や値を持ったせる
-        そうするとどのような値を持つべきか分かる
-    end note
-    class OO_ID{}
-    class PO_ID{}
-    class 制約{}
-    class 具体的な制約{}
-    class 具体的な値{}
-    OO_ID -- PO_ID
-
-    OO_ID -- 制約
-    PO_ID -- 具体的な制約
-    PO_ID -- 具体的な値
-}
 @enduml
