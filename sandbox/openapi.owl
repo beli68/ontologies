@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="https://raw.githubusercontent.com/beli68/ontologies/sandbox/ApiOntology"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="https://raw.githubusercontent.com/beli68/ontologies/sandbox/ApiOntology">
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Declaration>
+        <Class IRI="#AO_APIParameter"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AO_ID"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AO_Name"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AO_Number_ID"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AO_ParameterType"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AO_ParameterTypeOfInteger"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AO_ParameterTypeOfString"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AO_ParameterValidation"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AO_Validation_ExclusiveMaximum"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AO_Validation_Maximum"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AO_Validation_Minimum"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AO_Validation_Pattern"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasType"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasValidation"/>
+    </Declaration>
+    <SubClassOf>
+        <Class IRI="#AO_APIParameter"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#hasType"/>
+            <Class IRI="#AO_ParameterType"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AO_ID"/>
+        <Class IRI="#AO_APIParameter"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AO_Name"/>
+        <Class IRI="#AO_APIParameter"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AO_Name"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#hasType"/>
+            <Class IRI="#AO_ParameterTypeOfString"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AO_Number_ID"/>
+        <Class IRI="#AO_ID"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AO_Number_ID"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#hasType"/>
+            <Class IRI="#AO_ParameterTypeOfInteger"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AO_ParameterTypeOfInteger"/>
+        <Class IRI="#AO_ParameterType"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AO_ParameterTypeOfString"/>
+        <Class IRI="#AO_ParameterType"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AO_Validation_ExclusiveMaximum"/>
+        <Class IRI="#AO_ParameterValidation"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AO_Validation_Maximum"/>
+        <Class IRI="#AO_ParameterValidation"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AO_Validation_Minimum"/>
+        <Class IRI="#AO_ParameterValidation"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AO_Validation_Pattern"/>
+        <Class IRI="#AO_ParameterValidation"/>
+    </SubClassOf>
+    <DisjointClasses>
+        <Class IRI="#AO_APIParameter"/>
+        <Class IRI="#AO_ParameterType"/>
+        <Class IRI="#AO_ParameterValidation"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#AO_Validation_ExclusiveMaximum"/>
+        <Class IRI="#AO_Validation_Maximum"/>
+        <Class IRI="#AO_Validation_Minimum"/>
+        <Class IRI="#AO_Validation_Pattern"/>
+    </DisjointClasses>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="#hasType"/>
+    </FunctionalObjectProperty>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="#hasValidation"/>
+    </FunctionalObjectProperty>
+    <AsymmetricObjectProperty>
+        <ObjectProperty IRI="#hasType"/>
+    </AsymmetricObjectProperty>
+    <IrreflexiveObjectProperty>
+        <ObjectProperty IRI="#hasType"/>
+    </IrreflexiveObjectProperty>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasType"/>
+        <Class IRI="#AO_APIParameter"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasValidation"/>
+        <Class IRI="#AO_APIParameter"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasType"/>
+        <Class IRI="#AO_ParameterType"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasValidation"/>
+        <Class IRI="#AO_ParameterValidation"/>
+    </ObjectPropertyRange>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+

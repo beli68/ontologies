@@ -1,0 +1,121 @@
+@startuml Petstore API
+(AO_APIParameter) as AO_APIParameter
+(AO_ParameterType) as AO_ParameterType
+(AO_ParameterValidation) as AO_ParameterValidation
+
+
+' パラメータの型について
+AO_APIParameter -- "1..1" (AO_ParameterType) : hasType
+(AO_ParameterType) <-- (AO_ParameterTypeOfInteger) : SubClassOf
+(AO_ParameterTypeOfInteger) -- (xsd:Integer) : 整数値を持つ
+(AO_ParameterTypeOfInteger) <-- (AO_ParameterTypeOfLong) : SubClassOf
+(AO_ParameterTypeOfLong) -- (xsd:Long) : 符号付き64ビット整数を持つ
+(AO_ParameterType) <-- (AO_ParameterTypeOfString) : SubClassOf
+(AO_ParameterTypeOfString) -- (xsd:String) : 文字列を持つ
+
+' パラメータが持つ制約
+
+AO_ParameterType -- AO_ParameterValidation : hasValidation
+AO_ParameterValidation <-- (AO_Validation_Maximum): 最大値についての制限
+AO_ParameterValidation <-- (AO_Validation_Minimum): 最小値についての制限
+AO_ParameterValidation <-- (AO_Validation_ExclusiveMaximum): 最大値の制約は値を含むか
+AO_ParameterValidation <-- (AO_Validation_Pattern) : 文字列のパターン
+
+(AO_ParameterTypeOfInteger) -- (AO_Validation_Maximum)
+(AO_ParameterTypeOfInteger) -- (AO_Validation_Minimum)
+
+(AO_ParameterTypeOfString) -- (AO_Validation_Pattern)
+
+
+
+(AO_ID) as AO_ID
+AO_APIParameter <-- (AO_ID) : SubClassOf
+
+(AO_Number_ID) as AO_Number_ID
+(AO_ID) -- (AO_Number_ID) : SubClassOf
+(AO_Number_ID) -- (AO_ParameterTypeOfInteger) : Integerを持つ
+(AO_Number_ID) -- (hasValue) : minimum
+(AO_Number_ID) -- (hasValue) : maximum
+
+(AO_Name) as AO_Name
+AO_APIParameter <-- AO_Name : SubClassOf
+AO_Name -- AO_ParameterTypeOfString
+
+' AO_Name <-- (AO_JP_Name) : SubClassOf
+
+' (AO_Category) as AO_Category
+' AO_APIParameter <-- AO_Category : SubClassOf
+
+' (AO_URL) as AO_URL
+' AO_APIParameter <-- AO_URL : SubClassOf
+
+' (AO_Tag) as AO_Tag
+' AO_APIParameter <-- AO_Tag : SubClassOf
+
+' (AO_Status) as AO_Status
+' AO_APIParameter <-- AO_Status : SubClassOf
+
+' (AO_StatusName) as AO_StatusName
+' AO_APIParameter <-- AO_StatusName : SubClassOf
+
+' (AO_StatusNumber) as AO_StatusNumber
+' AO_APIParameter <-- AO_StatusNumber : SubClassOf
+
+' (AO_EmailAddress) as AO_EmailAddress
+' AO_APIParameter <-- AO_EmailAddress : SubClassOf
+
+' (AO_Password) as AO_Password
+' AO_APIParameter <-- AO_Password : SubClassOf
+
+' (AO_PhoneNumber) as AO_PhoneNumber
+' AO_APIParameter <-- AO_PhoneNumber : SubClassOf
+
+' (AO_StateNumber) as AO_StateNumber
+' AO_APIParameter <-- AO_StateNumber : SubClassOf
+
+' (AO_Quantity) as AO_Quantity
+' AO_APIParameter <-- AO_Quantity : SubClassOf
+
+' (AO_Choices) as AO_Choices
+' AO_APIParameter <-- AO_Choices : SubClassOf
+
+' (AO_DateTime) as AO_DateTime
+' AO_APIParameter <-- AO_DateTime : SubClassOf
+
+' (AO_Street) as AO_Street
+' AO_APIParameter <-- AO_Street : SubClassOf
+
+' (AO_City) as AO_City
+' AO_APIParameter <-- AO_City : SubClassOf
+
+' (AO_State) as AO_State
+' AO_APIParameter <-- AO_State : SubClassOf
+
+' (AO_ZipCode) as AO_ZipCode
+' AO_APIParameter <-- AO_ZipCode : SubClassOf
+
+' (AO_HttpStatusCode) as AO_HttpStatusCode
+' AO_APIParameter <-- AO_HttpStatusCode : SubClassOf
+
+' (AO_responseType) as AO_responseType
+' AO_APIParameter <-- AO_responseType : SubClassOf
+
+' (AO_Message) as AO_Message
+' AO_APIParameter <-- AO_Message : SubClassOf
+
+' (AO_hasType) as AO_hasType
+' AO_APIParameter <-- AO_hasType : SubClassOf
+
+
+rectangle petstore{
+    (id) as PetId
+    (Pet) -- PetId
+    (name) as PetName
+    (Pet) -- PetName
+    AO_Number_ID -- PetId
+    PetId -- (xsd:Integer)
+    PetId -- (1以上) : minimum
+    PetName -- AO_Name
+}
+
+@enduml
