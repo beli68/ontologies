@@ -33,25 +33,25 @@
         <Class IRI="#AO_ParameterTypeOfString"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#AO_ParameterValidation"/>
+        <Class IRI="#AO_ParameterProperty"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#AO_Validation_ExclusiveMaximum"/>
+        <Class IRI="#AO_Property_ExclusiveMaximum"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#AO_Validation_Maximum"/>
+        <Class IRI="#AO_Property_Maximum"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#AO_Validation_Minimum"/>
+        <Class IRI="#AO_Property_Minimum"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#AO_Validation_Pattern"/>
+        <Class IRI="#AO_Property_Pattern"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasType"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasValidation"/>
+        <ObjectProperty IRI="#hasProperty"/>
     </Declaration>
     <SubClassOf>
         <Class IRI="#AO_APIParameter"/>
@@ -95,37 +95,37 @@
         <Class IRI="#AO_ParameterType"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#AO_Validation_ExclusiveMaximum"/>
-        <Class IRI="#AO_ParameterValidation"/>
+        <Class IRI="#AO_Property_ExclusiveMaximum"/>
+        <Class IRI="#AO_ParameterProperty"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#AO_Validation_Maximum"/>
-        <Class IRI="#AO_ParameterValidation"/>
+        <Class IRI="#AO_Property_Maximum"/>
+        <Class IRI="#AO_ParameterProperty"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#AO_Validation_Minimum"/>
-        <Class IRI="#AO_ParameterValidation"/>
+        <Class IRI="#AO_Property_Minimum"/>
+        <Class IRI="#AO_ParameterProperty"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#AO_Validation_Pattern"/>
-        <Class IRI="#AO_ParameterValidation"/>
+        <Class IRI="#AO_Property_Pattern"/>
+        <Class IRI="#AO_ParameterProperty"/>
     </SubClassOf>
     <DisjointClasses>
         <Class IRI="#AO_APIParameter"/>
         <Class IRI="#AO_ParameterType"/>
-        <Class IRI="#AO_ParameterValidation"/>
+        <Class IRI="#AO_ParameterProperty"/>
     </DisjointClasses>
     <DisjointClasses>
-        <Class IRI="#AO_Validation_ExclusiveMaximum"/>
-        <Class IRI="#AO_Validation_Maximum"/>
-        <Class IRI="#AO_Validation_Minimum"/>
-        <Class IRI="#AO_Validation_Pattern"/>
+        <Class IRI="#AO_Property_ExclusiveMaximum"/>
+        <Class IRI="#AO_Property_Maximum"/>
+        <Class IRI="#AO_Property_Minimum"/>
+        <Class IRI="#AO_Property_Pattern"/>
     </DisjointClasses>
     <FunctionalObjectProperty>
         <ObjectProperty IRI="#hasType"/>
     </FunctionalObjectProperty>
     <FunctionalObjectProperty>
-        <ObjectProperty IRI="#hasValidation"/>
+        <ObjectProperty IRI="#hasProperty"/>
     </FunctionalObjectProperty>
     <AsymmetricObjectProperty>
         <ObjectProperty IRI="#hasType"/>
@@ -138,7 +138,7 @@
         <Class IRI="#AO_APIParameter"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#hasValidation"/>
+        <ObjectProperty IRI="#hasProperty"/>
         <Class IRI="#AO_APIParameter"/>
     </ObjectPropertyDomain>
     <ObjectPropertyRange>
@@ -146,8 +146,8 @@
         <Class IRI="#AO_ParameterType"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasValidation"/>
-        <Class IRI="#AO_ParameterValidation"/>
+        <ObjectProperty IRI="#hasProperty"/>
+        <Class IRI="#AO_ParameterProperty"/>
     </ObjectPropertyRange>
 </Ontology>
 

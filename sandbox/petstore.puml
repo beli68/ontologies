@@ -1,7 +1,7 @@
 @startuml Petstore API
 (AO_APIParameter) as AO_APIParameter
 (AO_ParameterType) as AO_ParameterType
-(AO_ParameterValidation) as AO_ParameterValidation
+(AO_ParameterProperty) as AO_ParameterProperty
 
 
 ' パラメータの型について
@@ -15,16 +15,23 @@ AO_APIParameter -- "1..1" (AO_ParameterType) : hasType
 
 ' パラメータが持つ制約
 
-AO_ParameterType -- AO_ParameterValidation : hasValidation
-AO_ParameterValidation <-- (AO_Validation_Maximum): 最大値についての制限
-AO_ParameterValidation <-- (AO_Validation_Minimum): 最小値についての制限
-AO_ParameterValidation <-- (AO_Validation_ExclusiveMaximum): 最大値の制約は値を含むか
-AO_ParameterValidation <-- (AO_Validation_Pattern) : 文字列のパターン
+AO_ParameterType -- AO_ParameterProperty : hasProperty
+AO_ParameterProperty <-- (AO_Property_Maximum): 最大値についての制限
+AO_ParameterProperty <-- (AO_Property_Minimum): 最小値についての制限
+AO_ParameterProperty <-- (AO_Property_ExclusiveMaximum): 最大値の制約は値を含むか
+AO_ParameterProperty <-- (AO_Property_ExclusiveMinimum): 最小値の制約は値を含むか
+AO_ParameterProperty <-- (AO_Property_MaxLength) : 最大長
+AO_ParameterProperty <-- (AO_Property_MinLength) : 最小長
+AO_ParameterProperty <-- (AO_Property_Pattern) : 文字列のパターン
 
-(AO_ParameterTypeOfInteger) -- (AO_Validation_Maximum)
-(AO_ParameterTypeOfInteger) -- (AO_Validation_Minimum)
+(AO_ParameterTypeOfInteger) -- (AO_Property_Maximum)
+(AO_ParameterTypeOfInteger) -- (AO_Property_Minimum)
+(AO_ParameterTypeOfInteger) -- (AO_Property_ExclusiveMaximum)
+(AO_ParameterTypeOfInteger) -- (AO_Property_ExclusiveMinimum)
 
-(AO_ParameterTypeOfString) -- (AO_Validation_Pattern)
+(AO_ParameterTypeOfString) -- (AO_Property_Pattern)
+(AO_ParameterTypeOfString) -- (AO_Property_MaxLength)
+(AO_ParameterTypeOfString) -- (AO_Property_MinLength)
 
 
 
@@ -114,7 +121,8 @@ rectangle petstore{
     (Pet) -- PetName
     AO_Number_ID -- PetId
     PetId -- (xsd:Integer)
-    PetId -- (1以上) : minimum
+    PetId -- (1) : AO_Property_Minimum
+    PetName -- (xsd:String)
     PetName -- AO_Name
 }
 
