@@ -33,6 +33,9 @@ AO_ParameterProperty <-- (AO_Property_Pattern) : 文字列のパターン
 (AO_ParameterTypeOfString) -- (AO_Property_MaxLength)
 (AO_ParameterTypeOfString) -- (AO_Property_MinLength)
 
+(AO_Property_MaxLength) -- (hasPositiveInteger)
+(AO_Property_MinLength) -- (hasPositiveInteger)
+(AO_Property_Pattern) -- (hasString)
 
 
 (AO_ID) as AO_ID
@@ -47,6 +50,7 @@ AO_APIParameter <-- (AO_ID) : SubClassOf
 (AO_Name) as AO_Name
 AO_APIParameter <-- AO_Name : SubClassOf
 AO_Name -- AO_ParameterTypeOfString
+
 
 ' AO_Name <-- (AO_JP_Name) : SubClassOf
 

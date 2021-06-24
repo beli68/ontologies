@@ -6,6 +6,7 @@
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      ontologyIRI="https://raw.githubusercontent.com/beli68/ontologies/sandbox/ApiOntology">
+    <Prefix name="" IRI="https://raw.githubusercontent.com/beli68/ontologies/sandbox/ApiOntology"/>
     <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
     <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
     <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
@@ -24,6 +25,9 @@
         <Class IRI="#AO_Number_ID"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#AO_ParameterProperty"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#AO_ParameterType"/>
     </Declaration>
     <Declaration>
@@ -31,9 +35,6 @@
     </Declaration>
     <Declaration>
         <Class IRI="#AO_ParameterTypeOfString"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#AO_ParameterProperty"/>
     </Declaration>
     <Declaration>
         <Class IRI="#AO_Property_ExclusiveMaximum"/>
@@ -48,11 +49,31 @@
         <Class IRI="#AO_Property_Pattern"/>
     </Declaration>
     <Declaration>
+        <ObjectProperty IRI="#hasProperty"/>
+    </Declaration>
+    <Declaration>
         <ObjectProperty IRI="#hasType"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasProperty"/>
+        <DataProperty IRI="#hasPositiveInteger"/>
     </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#PetId"/>
+    </Declaration>
+    <EquivalentClasses>
+        <Class IRI="#AO_Property_Maximum"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#hasPositiveInteger"/>
+            <Datatype abbreviatedIRI="xsd:positiveInteger"/>
+        </DataAllValuesFrom>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#AO_Property_Minimum"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#hasPositiveInteger"/>
+            <Datatype abbreviatedIRI="xsd:positiveInteger"/>
+        </DataAllValuesFrom>
+    </EquivalentClasses>
     <SubClassOf>
         <Class IRI="#AO_APIParameter"/>
         <ObjectAllValuesFrom>
@@ -112,8 +133,8 @@
     </SubClassOf>
     <DisjointClasses>
         <Class IRI="#AO_APIParameter"/>
-        <Class IRI="#AO_ParameterType"/>
         <Class IRI="#AO_ParameterProperty"/>
+        <Class IRI="#AO_ParameterType"/>
     </DisjointClasses>
     <DisjointClasses>
         <Class IRI="#AO_Property_ExclusiveMaximum"/>
@@ -121,11 +142,15 @@
         <Class IRI="#AO_Property_Minimum"/>
         <Class IRI="#AO_Property_Pattern"/>
     </DisjointClasses>
-    <FunctionalObjectProperty>
-        <ObjectProperty IRI="#hasType"/>
-    </FunctionalObjectProperty>
+    <ClassAssertion>
+        <Class IRI="#AO_APIParameter"/>
+        <NamedIndividual IRI="#PetId"/>
+    </ClassAssertion>
     <FunctionalObjectProperty>
         <ObjectProperty IRI="#hasProperty"/>
+    </FunctionalObjectProperty>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="#hasType"/>
     </FunctionalObjectProperty>
     <AsymmetricObjectProperty>
         <ObjectProperty IRI="#hasType"/>
@@ -134,21 +159,25 @@
         <ObjectProperty IRI="#hasType"/>
     </IrreflexiveObjectProperty>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#hasType"/>
-        <Class IRI="#AO_APIParameter"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
         <ObjectProperty IRI="#hasProperty"/>
         <Class IRI="#AO_APIParameter"/>
     </ObjectPropertyDomain>
-    <ObjectPropertyRange>
+    <ObjectPropertyDomain>
         <ObjectProperty IRI="#hasType"/>
-        <Class IRI="#AO_ParameterType"/>
-    </ObjectPropertyRange>
+        <Class IRI="#AO_APIParameter"/>
+    </ObjectPropertyDomain>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#hasProperty"/>
         <Class IRI="#AO_ParameterProperty"/>
     </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasType"/>
+        <Class IRI="#AO_ParameterType"/>
+    </ObjectPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#hasPositiveInteger"/>
+        <Datatype abbreviatedIRI="xsd:positiveInteger"/>
+    </DataPropertyRange>
 </Ontology>
 
 
